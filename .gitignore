@@ -1,0 +1,4 @@
+*.pyc
+venv/
+real-requirements.txt
+requirements.hippo.txt
