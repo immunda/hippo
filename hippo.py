@@ -69,7 +69,7 @@ class Sandbox(object):
 
     def freeze_to_file(self, output_file):
         with open(output_file, 'wb') as output:
-            args = [self.pip, 'freeze', '>', output_file]
+            args = [self.pip, 'freeze']
 
             if Popen(args, stdout=output).wait() != 0:
                 click.echo('Failed to pip freeze. Aborting.')
