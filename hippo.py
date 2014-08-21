@@ -50,7 +50,7 @@ class Sandbox(object):
         args.append(self.location)
 
         if Popen(args).wait() != 0:
-            click.echo('Failed to create virtualenv.  Aborting.')
+            click.echo('Failed to create virtualenv. Aborting.')
             raise VirtualenvError()
 
     def create(self):
@@ -62,7 +62,7 @@ class Sandbox(object):
         #     args.append('--editable')
 
         if Popen(args + install_args).wait() != 0:
-            click.echo('Failed to pip install.  Aborting.')
+            click.echo('Failed to pip install. Aborting.')
             raise PipError()
 
         return True
@@ -72,7 +72,7 @@ class Sandbox(object):
             args = [self.pip, 'freeze', '>', output_file]
 
             if Popen(args, stdout=output).wait() != 0:
-                click.echo('Failed to pip freeze.  Aborting.')
+                click.echo('Failed to pip freeze. Aborting.')
                 return False
 
         return True
@@ -102,7 +102,7 @@ def generate():
         output_file = os.path.join(os.getcwdu(), output_file)
 
     if os.path.exists(output_file):
-        click.echo("Output file already exists.  Aborting.")
+        click.echo("Output file %s already exists. Aborting." % output_file)
         exit()
 
     click.echo("Setting up sandbox...\n")
@@ -112,9 +112,9 @@ def generate():
             for package_line in f:
                 real_packages.append(package_line.rstrip())
 
-        click.echo("\nGenerating dependancies for %s\n" % ' '.join(real_packages))
+        click.echo("\nGenerating dependencies for %s\n" % ' '.join(real_packages))
         sandbox.install(real_packages)
 
-        click.echo("\nFreezing dependancies to %s" % output_file)
+        click.echo("\nFreezing dependencies to %s" % output_file)
         if sandbox.freeze_to_file(output_file):
             click.echo("\nDone.")
